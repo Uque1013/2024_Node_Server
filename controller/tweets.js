@@ -24,7 +24,7 @@ const tweetController = {
             tweet.text =text
             req.status(200).json(tweet)
         } else {
-            res.status(404).json({message: "게시글을 찾지 못했습니다."})
+            res.status(404).json({message: "게시글을 찾지 못했습니다."}) 
         }
     },
 

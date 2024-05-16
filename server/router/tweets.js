@@ -2,7 +2,7 @@ const express = require('express')
 const { updateTweet } = require('../../controller/tweets')
 const tweetController = require('../controller/tweets')
 
-const router = express.Router()
+const router = express.Router()  
 
 // READ
 router.get('/', tweetController.getTweets)
