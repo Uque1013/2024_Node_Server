@@ -13,7 +13,6 @@ router.post('/', tweetController.createTweet)
 // UPDATE
 router.put('/:id', tweetController.updateTweet)
 
-
 // DELETE
 router.delete('./:id', tweetController.deleteTweet)
 
