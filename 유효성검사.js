@@ -1,6 +1,8 @@
 const express = require('express');
 const app = express();
 const path = require('path');
+const {body, validationResult} = require('express-validator')
+
 
 // EJS 설정
 app.set('view engine', 'ejs');
@@ -22,17 +24,19 @@ app.get('/login', (req, res) => {
 });
 
 // 로그인 처리 라우트
-app.post('/login', (req, res) => {
+app.post('/login', [
+    body('username')
+      .isLength({min:3, max:20})
+      .withMessage('아이디는 3글자 이상 20자 이하여야 합니다'),
+    body('password')
+      .isLength({min:6, max:20})
+      .withMessage('비밀번호는 6글자 이상 20자 이하여야 합니다')
+], (req, res) => {
+  const errors = validationResult(req)
+  if(!errors.isEmpty()) {
+    return res.status(400).json({errros: errors.array()})
+  }
  const { username, password } = req.body;
-
- // 유효성 검사
- if (!username || username.length < 3 || username.length > 20) {
-   return res.status(400).send('아이디는 3글자 이상 20자 이하');
- }
-
- if (!password || password.length < 6 || password.length > 20) {
-   return res.status(400).send('비밀번호는 6글자 이상 20자 이하');
- }
 
  // 로그인 로직
  const user = users.find(user => user.username === username && user.password === password);
